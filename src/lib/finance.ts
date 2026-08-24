@@ -114,7 +114,8 @@ export function monthLabel(year: number, month: number): string {
 
 export function formatDate(iso: string): string {
   const [y, m, d] = iso.split("-").map(Number);
-  return `${d} ${MONTH_NAMES[m - 1].slice(0, 3)} ${y}`;
+  const name = MONTH_NAMES[(m ?? 1) - 1] ?? "";
+  return `${d} ${name.slice(0, 3)} ${y}`;
 }
 
 export function todayISO(): string {
