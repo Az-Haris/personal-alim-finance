@@ -109,7 +109,7 @@ export function inMonth(tx: Tx, year: number, month: number): boolean {
 }
 
 export function monthLabel(year: number, month: number): string {
-  return `${MONTH_NAMES[month - 1]} ${year}`;
+  return `${MONTH_NAMES[month - 1] ?? ""} ${year}`;
 }
 
 export function formatDate(iso: string): string {
