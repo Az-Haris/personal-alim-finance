@@ -18,7 +18,7 @@ import { TxRow, describeTx } from "@/components/transaction-list";
 import { TransactionDialog } from "@/components/transaction-dialog";
 import { useFinanceData } from "@/hooks/use-finance";
 import { useMonth } from "@/lib/month-context";
-import { formatBDT, inMonth, type Tx, type TxType } from "@/lib/finance";
+import { formatBDT, inMonth, relativeDay, type Tx, type TxType } from "@/lib/finance";
 
 export const Route = createFileRoute("/_authenticated/transactions")({
   head: () => ({
