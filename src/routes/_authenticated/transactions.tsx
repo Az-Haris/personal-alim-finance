@@ -18,7 +18,7 @@ import { TxRow, describeTx } from "@/components/transaction-list";
 import { TransactionDialog } from "@/components/transaction-dialog";
 import { useFinanceData } from "@/hooks/use-finance";
 import { useMonth } from "@/lib/month-context";
-import { formatBDT, inMonth, type Tx, type TxType } from "@/lib/finance";
+import { formatBDT, inMonth, relativeDay, type Tx, type TxType } from "@/lib/finance";
 
 export const Route = createFileRoute("/_authenticated/transactions")({
   head: () => ({
@@ -270,7 +270,7 @@ function TransactionsPage() {
                 {grouped.map(([date, txs]) => (
                   <div key={date}>
                     <p className="mb-1 px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                      {txs[0] ? describeDate(date) : date}
+                      {relativeDay(date)}
                     </p>
                     <div className="divide-y divide-border">
                       {txs.map((tx) => (
@@ -305,10 +305,6 @@ function TransactionsPage() {
   );
 }
 
-function describeDate(iso: string) {
-  const { relativeDay } = require("@/lib/finance") as { relativeDay: (s: string) => string };
-  return relativeDay(iso);
-}
 
 function MiniTotal({ label, value, cls }: { label: string; value: number; cls: string }) {
   return (
