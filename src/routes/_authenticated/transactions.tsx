@@ -305,10 +305,6 @@ function TransactionsPage() {
   );
 }
 
-function describeDate(iso: string) {
-  const { relativeDay } = require("@/lib/finance") as { relativeDay: (s: string) => string };
-  return relativeDay(iso);
-}
 
 function MiniTotal({ label, value, cls }: { label: string; value: number; cls: string }) {
   return (
