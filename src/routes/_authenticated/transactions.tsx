@@ -270,7 +270,7 @@ function TransactionsPage() {
                 {grouped.map(([date, txs]) => (
                   <div key={date}>
                     <p className="mb-1 px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                      {txs[0] ? describeDate(date) : date}
+                      {relativeDay(date)}
                     </p>
                     <div className="divide-y divide-border">
                       {txs.map((tx) => (
