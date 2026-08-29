@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { EmptyState, PageHeader, SectionCard, StatCard } from "@/components/stat-card";
-import { BudgetBar } from "@/routes/_authenticated/dashboard";
+import { BudgetBar } from "@/components/budget-bar";
 import { useFinanceData, useInvalidateFinance } from "@/hooks/use-finance";
 import { useMonth } from "@/lib/month-context";
 import { expenseByCategory, formatBDT } from "@/lib/finance";
