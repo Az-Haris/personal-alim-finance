@@ -9,11 +9,10 @@ import {
   ArrowRight,
   Receipt,
   Target,
-  AlertTriangle,
 } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
+import { BudgetBar } from "@/components/budget-bar";
 import { StatCard, EmptyState, SectionCard, PageHeader } from "@/components/stat-card";
 import { TxRow } from "@/components/transaction-list";
 import { TransactionDialog } from "@/components/transaction-dialog";
