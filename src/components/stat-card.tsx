@@ -26,10 +26,10 @@ export function StatCard({
   hint,
 }: {
   label: string;
-  value: number;
+  value: number | string;
   icon: LucideIcon;
-  tone?: Tone;
-  hint?: string;
+  tone?: Tone | undefined;
+  hint?: string | undefined;
 }) {
   return (
     <div className="surface-card p-4">
@@ -40,7 +40,7 @@ export function StatCard({
         </span>
       </div>
       <p className={cn("tnum mt-2 text-2xl font-extrabold tracking-tight", AMOUNT[tone])}>
-        {formatBDT(value)}
+        {typeof value === "number" ? formatBDT(value) : value}
       </p>
       {hint && <p className="mt-1 text-xs text-muted-foreground">{hint}</p>}
     </div>
@@ -55,8 +55,8 @@ export function EmptyState({
 }: {
   title: string;
   description: string;
-  action?: React.ReactNode;
-  icon?: LucideIcon;
+  action?: React.ReactNode | undefined;
+  icon?: LucideIcon | undefined;
 }) {
   return (
     <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border px-6 py-12 text-center">
@@ -78,8 +78,8 @@ export function PageHeader({
   action,
 }: {
   title: string;
-  description?: string;
-  action?: React.ReactNode;
+  description?: string | undefined;
+  action?: React.ReactNode | undefined;
 }) {
   return (
     <div className="mb-5 flex flex-wrap items-start justify-between gap-3">
@@ -99,11 +99,11 @@ export function SectionCard({
   children,
   className,
 }: {
-  title?: string;
-  description?: string;
-  action?: React.ReactNode;
+  title?: string | undefined;
+  description?: string | undefined;
+  action?: React.ReactNode | undefined;
   children: React.ReactNode;
-  className?: string;
+  className?: string | undefined;
 }) {
   return (
     <section className={cn("surface-card p-4 sm:p-5", className)}>
