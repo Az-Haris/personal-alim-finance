@@ -41,14 +41,25 @@ function BudgetPage() {
     [data.transactions, year, month],
   );
 
+  const draftSignature = useMemo(
+    () =>
+      data.categories
+        .map((c) => {
+          const b = monthBudgets.find((x) => x.category_id === c.id);
+          return `${c.id}:${b ? Number(b.amount) : ""}`;
+        })
+        .join("|"),
+    [data.categories, monthBudgets],
+  );
+
   useEffect(() => {
     const next: Record<string, string> = {};
-    for (const c of data.categories) {
-      const b = monthBudgets.find((x) => x.category_id === c.id);
-      next[c.id] = b ? String(Number(b.amount)) : "";
+    for (const pair of draftSignature ? draftSignature.split("|") : []) {
+      const idx = pair.indexOf(":");
+      next[pair.slice(0, idx)] = pair.slice(idx + 1);
     }
     setDrafts(next);
-  }, [data.categories, monthBudgets]);
+  }, [draftSignature]);
 
   const totalBudget = monthBudgets.reduce((s, b) => s + Number(b.amount), 0);
   const totalSpent = monthBudgets.reduce((s, b) => s + (spend.get(b.category_id) ?? 0), 0);

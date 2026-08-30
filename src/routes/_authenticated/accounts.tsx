@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Plus, PiggyBank, Wallet, Pencil, Archive, ArchiveRestore, ArrowLeftRight } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -327,7 +327,7 @@ function AccountEditor({
   const [opening, setOpening] = useState("0");
   const [saving, setSaving] = useState(false);
 
-  useMemo(() => {
+  useEffect(() => {
     if (!open) return;
     setName(account?.name ?? "");
     setType(account?.type ?? "cash");

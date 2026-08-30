@@ -223,7 +223,7 @@ export function TransactionDialog({
       const userId = userData.user?.id;
       if (!userId) throw new Error("You are signed out. Please sign in again.");
 
-      const payload = { ...parsed.data, user_id: userId };
+      const payload = { ...parsed.data, note: parsed.data.note ?? null, user_id: userId };
 
       if (editing) {
         const { error } = await supabase.from("transactions").update(payload).eq("id", editing.id);
@@ -325,12 +325,12 @@ export function TransactionDialog({
                 className="tnum h-12 text-lg font-bold"
                 autoFocus
               />
-              {errors.amount && <p className="text-xs text-destructive">{errors.amount}</p>}
+              {errors['amount'] && <p className="text-xs text-destructive">{errors['amount']}</p>}
             </div>
 
             {form.type === "income" && (
               <>
-                <Field label="Income source" error={errors.income_source_id}>
+                <Field label="Income source" error={errors['income_source_id']}>
                   <Picker
                     value={form.income_source_id}
                     onChange={(v) => set("income_source_id", v)}
@@ -338,7 +338,7 @@ export function TransactionDialog({
                     placeholder="Select source"
                   />
                 </Field>
-                <Field label="Received to" error={errors.account_id}>
+                <Field label="Received to" error={errors['account_id']}>
                   <Picker
                     value={form.account_id}
                     onChange={(v) => set("account_id", v)}
@@ -352,7 +352,7 @@ export function TransactionDialog({
             {form.type === "expense" && (
               <>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <Field label="Category" error={errors.category_id}>
+                  <Field label="Category" error={errors['category_id']}>
                     <Picker
                       value={form.category_id}
                       onChange={(v) => set("category_id", v)}
@@ -372,7 +372,7 @@ export function TransactionDialog({
                   </Field>
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <Field label="Paid from" error={errors.account_id}>
+                  <Field label="Paid from" error={errors['account_id']}>
                     <Picker
                       value={form.account_id}
                       onChange={(v) => set("account_id", v)}
@@ -396,7 +396,7 @@ export function TransactionDialog({
             {form.type === "transfer" && (
               <>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <Field label="From account" error={errors.from_account_id}>
+                  <Field label="From account" error={errors['from_account_id']}>
                     <Picker
                       value={form.from_account_id}
                       onChange={(v) => set("from_account_id", v)}
@@ -404,7 +404,7 @@ export function TransactionDialog({
                       placeholder="Select account"
                     />
                   </Field>
-                  <Field label="To account" error={errors.to_account_id}>
+                  <Field label="To account" error={errors['to_account_id']}>
                     <Picker
                       value={form.to_account_id}
                       onChange={(v) => set("to_account_id", v)}
@@ -424,7 +424,7 @@ export function TransactionDialog({
               </>
             )}
 
-            <Field label="Date" error={errors.transaction_date}>
+            <Field label="Date" error={errors['transaction_date']}>
               <Input
                 type="date"
                 value={form.transaction_date}
@@ -491,7 +491,7 @@ function Field({
   children,
 }: {
   label: string;
-  error?: string;
+  error?: string | undefined;
   children: React.ReactNode;
 }) {
   return (
@@ -515,14 +515,14 @@ export function Picker({
   onChange: (v: string) => void;
   options: { id: string; name: string }[];
   placeholder: string;
-  disabled?: boolean;
+  disabled?: boolean | undefined;
   allowNone?: boolean;
 }) {
   return (
     <Select
       value={value || NONE}
       onValueChange={(v) => onChange(v === NONE ? "" : v)}
-      disabled={disabled}
+      disabled={disabled ?? false}
     >
       <SelectTrigger>
         <SelectValue placeholder={placeholder}>
