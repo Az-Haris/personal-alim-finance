@@ -197,7 +197,7 @@ function Dashboard() {
           ) : (
             <div className="flex flex-col items-center gap-4 sm:flex-row">
               <div className="h-44 w-44 shrink-0">
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width={176} height={176}>
                   <PieChart>
                     <Pie
                       data={chartData}
