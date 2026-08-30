@@ -24,7 +24,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { EmptyState, PageHeader, SectionCard } from "@/components/stat-card";
-import { useFinanceData, useInvalidateFinance } from "@/hooks/use-finance";
+import { useFinanceData, useInvalidateFinance, useProfile } from "@/hooks/use-finance";
 
 export const Route = createFileRoute("/_authenticated/settings")({
   head: () => ({
@@ -42,6 +42,8 @@ type DeleteTarget = { table: string; id: string; name: string } | null;
 
 function SettingsPage() {
   const data = useFinanceData();
+  const profileQuery = useProfile();
+  const profile = profileQuery.data ?? null;
   const invalidate = useInvalidateFinance();
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -49,8 +51,8 @@ function SettingsPage() {
   const [target, setTarget] = useState<DeleteTarget>(null);
 
   useEffect(() => {
-    if (data.profile?.name) setName(data.profile.name);
-  }, [data.profile?.name]);
+    if (profile?.name) setName(data.profile.name);
+  }, [profile?.name]);
 
   async function saveProfile(e: React.FormEvent) {
     e.preventDefault();
@@ -63,7 +65,7 @@ function SettingsPage() {
     const { error } = await supabase
       .from("profiles")
       .update({ name: trimmed })
-      .eq("user_id", data.profile!.user_id);
+      .eq("user_id", profile!.user_id);
     setSavingProfile(false);
     if (error) {
       toast.error(error.message);
@@ -108,7 +110,7 @@ function SettingsPage() {
           </div>
           <div className="flex-1 space-y-1.5">
             <Label htmlFor="profile-email">Email</Label>
-            <Input id="profile-email" value={data.profile?.email ?? ""} disabled />
+            <Input id="profile-email" value={profile?.email ?? ""} disabled />
           </div>
           <Button type="submit" disabled={savingProfile}>
             {savingProfile ? <Loader2 className="h-4 w-4 animate-spin" /> : <User className="h-4 w-4" />}
