@@ -523,6 +523,7 @@ export function Picker({
       value={value || NONE}
       onValueChange={(v) => onChange(v === NONE ? "" : v)}
       disabled={disabled ?? false}
+    >
       <SelectTrigger>
         <SelectValue placeholder={placeholder}>
           {value ? (options.find((o) => o.id === value)?.name ?? placeholder) : placeholder}
