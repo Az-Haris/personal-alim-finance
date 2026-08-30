@@ -327,7 +327,7 @@ function AccountEditor({
   const [opening, setOpening] = useState("0");
   const [saving, setSaving] = useState(false);
 
-  useMemo(() => {
+  useEffect(() => {
     if (!open) return;
     setName(account?.name ?? "");
     setType(account?.type ?? "cash");
