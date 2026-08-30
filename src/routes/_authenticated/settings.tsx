@@ -51,7 +51,7 @@ function SettingsPage() {
   const [target, setTarget] = useState<DeleteTarget>(null);
 
   useEffect(() => {
-    if (profile?.name) setName(data.profile.name);
+    if (profile?.name) setName(profile.name);
   }, [profile?.name]);
 
   async function saveProfile(e: React.FormEvent) {

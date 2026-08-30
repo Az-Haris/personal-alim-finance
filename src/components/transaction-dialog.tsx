@@ -223,7 +223,7 @@ export function TransactionDialog({
       const userId = userData.user?.id;
       if (!userId) throw new Error("You are signed out. Please sign in again.");
 
-      const payload = { ...parsed.data, user_id: userId };
+      const payload = { ...parsed.data, note: parsed.data.note ?? null, user_id: userId };
 
       if (editing) {
         const { error } = await supabase.from("transactions").update(payload).eq("id", editing.id);
@@ -523,7 +523,7 @@ export function Picker({
       value={value || NONE}
       onValueChange={(v) => onChange(v === NONE ? "" : v)}
       disabled={disabled}
-    >
+      disabled={disabled ?? false}
       <SelectTrigger>
         <SelectValue placeholder={placeholder}>
           {value ? (options.find((o) => o.id === value)?.name ?? placeholder) : placeholder}
