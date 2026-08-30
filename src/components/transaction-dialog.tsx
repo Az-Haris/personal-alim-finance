@@ -522,7 +522,6 @@ export function Picker({
     <Select
       value={value || NONE}
       onValueChange={(v) => onChange(v === NONE ? "" : v)}
-      disabled={disabled}
       disabled={disabled ?? false}
       <SelectTrigger>
         <SelectValue placeholder={placeholder}>
